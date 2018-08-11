@@ -1,0 +1,34 @@
+Restore
+=======
+- go to folder
+mongorestore [folderName]
+
+MongoShell
+==========
+-- go to command prompt
+>mongo
+
+Set current database
+====================
+>use [dbName]
+
+List Databases
+==============
+>show dbs
+
+List Collections
+================
+>show collections
+
+Insert
+======
+>db.[collectionName].insert({'key': 'value'})
+>db.[collectionName].insertOne({'key': 'value'})
+
+Find
+====
+>db.[collectionName].find().pretty()
+>var c = db.[collectionName].find()
+>c.hasNext()
+true
+
