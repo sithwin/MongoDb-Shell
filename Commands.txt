@@ -1,3 +1,7 @@
+Version
+=======
+mongo --nodb
+
 Restore
 =======
 - go to folder
