@@ -171,6 +171,29 @@ db.movieDetails.updateOne(
 		]
 }}});
 
+db.movieDetails.updateOne(
+{ "imb.id": detailimdb.id },
+{ $set: detail },
+{ upsert: true}
+)
+
+REPLACEONE
+----------
+detaliDoc = db.movieDetails.findOne({"imdb.id": "tt436814"});
+detaliDoc.poster;
+detaliDoc.poster = "This is new poster";
+detaliDoc.genres;
+detaliDoc.genres.push("Documentary");
+db.movieDetails.replaceOne(
+{ "imdb.id": detaliDoc.imdb.id },
+detaliDoc
+);
+
+DELETE
+======
+db.reviews.deleteOne({_id:ObjectId("333")});
+db.reviews.deleteMany({reviewer_id: 89898});
+
 Use Javascript Files
 ====================
 load("[jsfileName]")
