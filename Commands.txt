@@ -81,7 +81,95 @@ db.movies.find({'cast.0': 'Jeff Bridges'}), {title: 1, _id: 0}
 -- Exclude
 db.movies.find({'cast.0': 'Jeff Bridges'}), {cast: 0}
 
+Update
+======
+$set  Sets the value of a field in a document
+$inc  Increments the value of the field by the specified amount
+$mul  Multiplies the value of the field by the specified amount
+$rename Renames a field
+$setOnInsert    Sets the value of a field if an update results in an insert of a document. Has no effect on update operations                 that modifying existing documents
+$unset  Removes the specified field from a document
 
+db.movieDetails.updateOne({
+  title: "The Martian"
+}, {
+  $set: {
+    poster: "this is poster"
+  }
+})
+
+set new object
+--------------
+db.movieDetails.updateOne({
+  title: "The Martian"
+}, {
+  $set: {
+    "awards": {
+      "wins": 8,
+      "nominations": 14,
+      "text": "Nominated for 3 Golden Globes. Another 8 wins & 14 nominations."
+    }
+  }
+});
+
+Increment the value
+--------------------
+db.movieDetails.updateOne({
+  title: "The Martian"
+}, {
+  $inc: {
+    "tomato.reviews": 3,
+    "tomato.userReviews": 25
+  }
+});
+
+Updating Array
+--------------
+$addToSet   Adds elements to an array only if they do not already exist in the set.
+$pop        Removes the first or last item of an array.
+pullAll     Removes all matching values from an array.
+pull        Removes all array elements that match a specified query.
+pushAll     Deprecated. Adds several items to an array.
+push        Adds an item to an array.
+
+PUSH
+----
+db.movieDetails.updateOne({
+  title: "The Martian"
+}, {
+  $push: {
+    reviews: {
+      rating: 4.5,
+      date: ISODate("2016-01-12T09:00:00Z"),
+      reviewer: "Spencer H.",
+      text: "reviewText1"
+    }
+  }
+})
+
+PUSH with EACH
+--------------
+db.movieDetails.updateOne(
+{ title: "The Martian" }, 
+{ $push: { reviews: { $each: [
+		{
+			rating: 5,
+			date: ISODate("2016-01-12T09:00:00Z"),
+			reviewer: "Spencer H.",
+			text: "reviewText2"
+		},{
+			rating: 6,
+			date: ISODate("2016-01-12T09:00:00Z"),
+			reviewer: "Kristian Z.",
+			text: "reviewText3"
+		}, {
+			rating: 7,
+			date: ISODate("2016-01-12T09:00:00Z"),
+			reviewer: "Matthew Samuel",
+			text: "reviewText4"
+		}
+		]
+}}});
 
 Use Javascript Files
 ====================
