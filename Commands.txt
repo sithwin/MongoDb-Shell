@@ -46,6 +46,42 @@ Find
 >c.hasNext()
 true
 
+db.[collectionName].find({'mpaaRating': 'PG-13', year: 2009}).pretty()
+-- Find in nested document
+db.[collectionName].find({'wind.direction.angle': 290}).pretty()
+
+-- Find in Array
+db.movies.find({cast: "Jeff Bridges"}).pretty()
+-- Find by Position
+db.movies.find({'cast.0': 'Jeff Bridges'}).pretty()
+
+Count
+=====
+ db.movieDetails.count()
+ -- Nested objects
+ db.movieDetails.count({'awards.wins': 2, 'awards.nominations': 2})
+ 
+ -- Array
+ db.movieDetails.count({'writers': ['Ethan Coen', 'Joel Coen']})
+ db.movieDetails.count({'genres' : 'Family'})
+ db.movieDetails.count({'genres.1': 'Western'})
+
+Cursors
+=======
+it => iterate
+
+Projection
+==========
+as Second Argument
+-- Only display Title Fields
+db.movies.find({'cast.0': 'Jeff Bridges'}), {title: 1}
+-- do not display _id field
+db.movies.find({'cast.0': 'Jeff Bridges'}), {title: 1, _id: 0}
+
+-- Exclude
+db.movies.find({'cast.0': 'Jeff Bridges'}), {cast: 0}
+
+
 
 Use Javascript Files
 ====================
