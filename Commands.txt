@@ -28,6 +28,16 @@ Insert
 ======
 >db.[collectionName].insert({'key': 'value'})
 >db.[collectionName].insertOne({'key': 'value'})
+>db.[collectionName].insertMany
+(
+[
+  {"title": "a"},
+  {"title": "b"}
+],
+{ 
+  {"ordered": false} // Default is true => stop insert the rest of the documents
+}
+)
 
 Find
 ====
@@ -36,3 +46,7 @@ Find
 >c.hasNext()
 true
 
+
+Use Javascript Files
+====================
+load("[jsfileName]")
