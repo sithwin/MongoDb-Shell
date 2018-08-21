@@ -69,6 +69,10 @@ Count
 Cursors
 =======
 it => iterate
+var c = db.movieDetails.find();
+var doc = function() { return c.hastNext() ? c.next : null; }
+c.objsLeftInBatch(); // how many left in cursor
+doc() // iterate
 
 Projection
 ==========
