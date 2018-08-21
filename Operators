@@ -1,0 +1,59 @@
+Query Selectors
+Comparison
+==========
+$eq =
+$gt >
+$gte >=
+$lt <
+$lte <=
+$ne !=
+$in include
+$nin not In
+
+// Example
+db.movieDetails.find({ runtime: { $gt: 90 } }).count()
+db.movieDetails.find({ runtime: { $gt: 90, $lt: 120 } }).count()
+db.movieDetails.find({ "tomato.meter": { $gte: 95 }, runtime: { $gt: 180 } })
+db.movieDetails.find({ rated: { $ne: "UNRATED" } }).count()
+db.movieDetails.find({ rated: { $in: ["G", "PG"] } }).pretty()
+
+Element (column)
+=======
+$exists Matches documents that have the specified field
+$type   Selects documents if a field is of the specified type
+
+db.movieDetails.find({ "tomato.meter": { $exists: true } })
+db.movieDetails.find({ "_id": { $type: "string" } }).count()
+
+Logical
+=======
+$or   Joins query claues with ligical OR (either)
+$and  Joins query claues with ligical AND (both)
+$not  not match the query expression
+$nor  NOR returns all documents that fail to match both clauses
+
+db.movieDetails.find({ $or: [{ "tomato.meter" : {$gt: 90} }, 
+                             { "metacritic":    {$gt: 88} }
+                            ]
+                     }).pretty()
+                     
+db.movieDetails.find({ $and: [{ "metacritic" : {$ne: null} }, 
+                              { "metacritic" : {$exists: true} }
+                            ]
+                     }).pretty()
+                     
+                    
+Evaluation
+==========
+$mod   modulo operation
+regex   
+
+db.movieDetails.find({ "awards.text": { $regex: /^Won\s.*/ } })
+
+Array
+=====
+$all    
+$size
+
+db.movieDetails.find({ genres: { $all: ["Comedy", "Crime", "Drama"] } }).pretty()
+db.movieDetails.find({ countries: { $size: 1 } }).pretty()
