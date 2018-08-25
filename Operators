@@ -88,4 +88,8 @@ $all
 $size
 
 db.movieDetails.find({ genres: { $all: ["Comedy", "Crime", "Drama"] } }).pretty()
+
+// Just one country in the array
 db.movieDetails.find({ countries: { $size: 1 } }).pretty()
+
+
