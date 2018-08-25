@@ -93,3 +93,4 @@ db.movieDetails.find({ genres: { $all: ["Comedy", "Crime", "Drama"] } }).pretty(
 db.movieDetails.find({ countries: { $size: 1 } }).pretty()
 
 
+db.movieDetails.find({boxOffice: {$elemMatch: {"country": "Germany", "revenue": {$gt: 16}}}})
