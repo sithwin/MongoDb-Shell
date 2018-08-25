@@ -25,6 +25,18 @@ $type   Selects documents if a field is of the specified type
 db.movieDetails.find({ "tomato.meter": { $exists: true } })
 db.movieDetails.find({ "_id": { $type: "string" } }).count()
 
+db.moviesDetails.find({mpaaRating: {$exists: true}})
+db.moviesDetails.find({mpaaRating: {$exists: false}})
+
+db.movieDetails.find({mpaaRating: null})
+
+db.movieDetails.find({})
+
+db.movies.find({viewerRating: {$type: "int"}}).pretty()
+db.movies.find({viewerRating: {$type: "double"}}).pretty()
+
+
+
 Logical
 =======
 $or   Joins query claues with ligical OR (either)
